@@ -8,93 +8,155 @@
 <style>
 *{box-sizing:border-box}
 
+html{
+scroll-behavior:smooth;
+}
+
 body{
 margin:0;
 font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC",sans-serif;
-background:linear-gradient(135deg,#fff5f7,#ffe4eb);
-color:#4a353b;
-min-height:100vh;
+background:
+radial-gradient(circle at top,#fff,#ffeef2 45%,#ffdfe7);
+color:#49363c;
+overflow-x:hidden;
+}
+
+body:before{
+content:"";
+position:fixed;
+inset:0;
+pointer-events:none;
+background-image:
+radial-gradient(#fff 1px,transparent 1px);
+background-size:25px 25px;
+opacity:.35;
 }
 
 .container{
-max-width:520px;
+width:100%;
+max-width:560px;
 margin:auto;
-padding:30px 20px 50px;
+padding:30px 18px 70px;
 }
 
 .page{
 display:none;
-min-height:90vh;
+min-height:92vh;
 align-items:center;
 justify-content:center;
 flex-direction:column;
 text-align:center;
-animation:fade .5s ease;
+animation:fade .7s ease;
 }
 
-.page.active{display:flex}
+.page.active{
+display:flex;
+}
 
 @keyframes fade{
-from{opacity:0;transform:translateY(15px)}
-to{opacity:1;transform:translateY(0)}
+from{
+opacity:0;
+transform:translateY(25px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
 }
 
 .heart{
-font-size:75px;
-color:#df7890;
-animation:beat 1.5s infinite;
+font-size:78px;
+color:#df718a;
+animation:heartbeat 1.5s infinite;
+text-shadow:0 10px 25px #d9788e55;
 }
 
-@keyframes beat{
-50%{transform:scale(1.1)}
+@keyframes heartbeat{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.12)}
 }
 
 .date{
-color:#b96b7e;
+font-size:12px;
 letter-spacing:5px;
-font-size:14px;
+color:#b9687d;
+margin-bottom:10px;
 }
 
 h1{
-font-size:40px;
-margin:15px 0 10px;
+font-size:42px;
+margin:10px 0;
 }
 
 h2{
 font-size:28px;
-margin:10px 0;
+margin:8px 0 15px;
+}
+
+h3{
+font-size:20px;
+margin:8px 0;
 }
 
 p{
-line-height:1.8;
 font-size:17px;
+line-height:1.9;
 }
 
 .card{
 width:100%;
-background:rgba(255,255,255,.86);
-border-radius:28px;
-padding:25px;
-box-shadow:0 15px 40px rgba(180,90,110,.18);
+background:rgba(255,255,255,.9);
+border:1px solid white;
+border-radius:30px;
+padding:27px 22px;
+box-shadow:
+0 20px 60px rgba(170,80,100,.16),
+inset 0 0 30px rgba(255,255,255,.5);
+backdrop-filter:blur(10px);
 }
 
 button{
-border:none;
-border-radius:30px;
+border:0;
+border-radius:999px;
 padding:14px 28px;
-margin-top:18px;
-background:#d9788e;
+margin-top:16px;
+background:#d9778d;
 color:white;
 font-size:16px;
 font-weight:bold;
+box-shadow:0 8px 22px #d9778d45;
 cursor:pointer;
 }
 
 button.secondary{
 background:white;
-color:#bd6478;
-border:1px solid #efc2cc;
+color:#b76075;
+border:1px solid #efc2cd;
+box-shadow:none;
 }
+
+.progress{
+position:fixed;
+top:12px;
+left:50%;
+transform:translateX(-50%);
+width:70%;
+max-width:300px;
+height:4px;
+background:#ffffff99;
+border-radius:20px;
+z-index:99;
+overflow:hidden;
+}
+
+.bar{
+height:100%;
+width:10%;
+background:#d9778d;
+transition:.5s;
+}
+
+/* 照片 */
 
 .photos{
 display:grid;
@@ -103,79 +165,266 @@ gap:12px;
 margin-top:20px;
 }
 
-.photos img{
+.photo-box{
+position:relative;
+overflow:hidden;
+border-radius:20px;
+cursor:pointer;
+}
+
+.photo-box img{
 width:100%;
-height:180px;
-object-fit:cover;
-border-radius:18px;
+height:190px;
 display:block;
+object-fit:cover;
+transition:.4s;
 }
 
-.photos img:last-child{
+.photo-box:hover img{
+transform:scale(1.06);
+}
+
+.photo-box.big{
 grid-column:span 2;
-height:230px;
 }
 
-.choice{
+.photo-box.big img{
+height:260px;
+}
+
+.photo-label{
+position:absolute;
+bottom:0;
+left:0;
+right:0;
+padding:30px 12px 10px;
+color:white;
+font-size:13px;
+text-align:left;
+background:linear-gradient(transparent,#0009);
+}
+
+/* 理由 */
+
+.reason-list{
+display:grid;
+gap:10px;
+margin-top:18px;
+}
+
+.reason-item{
+background:#fff5f7;
+border-radius:18px;
+padding:15px;
+text-align:left;
+font-size:16px;
+}
+
+/* 測驗 */
+
+.quiz{
 display:grid;
 gap:12px;
 margin-top:20px;
 }
 
-.choice button{
-background:white;
-color:#684c55;
-border:1px solid #efc8d0;
-box-shadow:none;
+.quiz button{
 margin:0;
+background:#fff;
+color:#694c55;
+border:1px solid #efc9d1;
+box-shadow:none;
+text-align:left;
 }
 
-.reason{
-min-height:120px;
+.result{
+margin-top:15px;
+color:#b45d73;
+font-weight:bold;
+min-height:30px;
+}
+
+/* 時間線 */
+
+.timeline{
+margin-top:25px;
+text-align:left;
+}
+
+.timeline-item{
+position:relative;
+padding:0 0 25px 28px;
+border-left:2px solid #edb5c2;
+}
+
+.timeline-item:last-child{
+border-left:0;
+}
+
+.timeline-item:before{
+content:"♥";
+position:absolute;
+left:-10px;
+top:0;
+background:#d9788e;
+color:white;
+width:20px;
+height:20px;
+border-radius:50%;
+font-size:11px;
 display:flex;
 align-items:center;
 justify-content:center;
-color:#b45f73;
-font-size:23px;
-font-weight:bold;
-line-height:1.6;
 }
 
-.final{
+.timeline-item strong{
+color:#b75f73;
+}
+
+/* 禮物 */
+
+.gift{
+font-size:100px;
+cursor:pointer;
+animation:float 2s infinite ease-in-out;
+}
+
+@keyframes float{
+50%{transform:translateY(-12px)}
+}
+
+.gift-message{
+display:none;
+margin-top:20px;
+font-size:20px;
+font-weight:bold;
+color:#b55e72;
+animation:fade .6s ease;
+}
+
+/* 信 */
+
+.letter{
+background:#fffdf8;
+padding:28px 22px;
+border-radius:8px;
+box-shadow:0 12px 35px #8d657022;
 text-align:left;
-font-size:18px;
+line-height:2;
+font-size:17px;
+position:relative;
+}
+
+.letter:before{
+content:"";
+position:absolute;
+inset:8px;
+border:1px solid #ead7cf;
+pointer-events:none;
+}
+
+.letter-content{
+position:relative;
+z-index:2;
+}
+
+/* 最後 */
+
+.final-heart{
+font-size:100px;
+color:#dc7188;
+animation:heartbeat 1.3s infinite;
+}
+
+.final-text{
+font-size:22px;
+line-height:2;
+font-weight:bold;
+color:#a9556a;
 }
 
 .signature{
-color:#b45f73;
+margin-top:25px;
+color:#b55e72;
 font-weight:bold;
 }
 
-.small{
-font-size:14px;
-color:#987780;
-}
+/* 愛心 */
 
-.progress{
+.floating-heart{
 position:fixed;
-top:12px;
-left:50%;
-transform:translateX(-50%);
-width:65%;
-max-width:300px;
-height:4px;
-background:rgba(255,255,255,.7);
-border-radius:10px;
-z-index:10;
+bottom:-30px;
+font-size:20px;
+color:#df718a;
+animation:rise linear forwards;
+pointer-events:none;
+z-index:100;
 }
 
-.bar{
-height:100%;
-width:20%;
-background:#d9788e;
-transition:.4s;
+@keyframes rise{
+to{
+transform:translateY(-110vh) rotate(25deg);
+opacity:0;
+}
 }
 
+/* 放大照片 */
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:#000c;
+z-index:200;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+.modal.active{
+display:flex;
+}
+
+.modal img{
+max-width:100%;
+max-height:85vh;
+border-radius:20px;
+}
+
+.close{
+position:absolute;
+top:20px;
+right:20px;
+color:white;
+font-size:30px;
+cursor:pointer;
+}
+
+/* 手機 */
+
+@media(max-width:400px){
+
+h1{
+font-size:36px;
+}
+
+h2{
+font-size:25px;
+}
+
+.card{
+padding:22px 17px;
+}
+
+.photos img{
+height:160px;
+}
+
+.photo-box.big img{
+height:220px;
+}
+
+}
 </style>
 </head>
 
@@ -187,7 +436,8 @@ transition:.4s;
 
 <div class="container">
 
-<!-- 第一頁 -->
+<!-- 1 開場 -->
+
 <section class="page active">
 
 <div class="heart">♥</div>
@@ -197,47 +447,144 @@ transition:.4s;
 <h1>給小桃子</h1>
 
 <p>
-這是一份只想送給你的<br>
-小小遠距離驚喜。
+有一份小小的驚喜<br>
+想在今天送給你。
+</p>
+
+<p>
+請慢慢看完。
 </p>
 
 <button onclick="nextPage()">
-開始探索
+打開這份心意
 </button>
 
 </section>
 
 
-<!-- 第二頁 -->
+<!-- 2 歡迎 -->
+
 <section class="page">
 
 <div class="card">
 
-<div class="date">OUR LITTLE MEMORY</div>
+<div class="date">FOR YOU</div>
 
-<h2>先一起回顧一下</h2>
+<h2>歡迎來到我們的小世界</h2>
 
 <p>
-有些照片看起來只是照片，<br>
-但對我來說，每一張都是我們的回憶。
+這不是什麼很厲害的網站，<br>
+但裡面的每一句話，都是我想跟你說的。
+</p>
+
+<p>
+因為我們現在有一段距離，<br>
+所以我想把一些想念、回憶和心裡的話，<br>
+全部放在這裡。
+</p>
+
+<button onclick="nextPage()">
+繼續看看
+</button>
+
+</div>
+
+</section>
+
+
+<!-- 3 照片 -->
+
+<section class="page">
+
+<div class="card">
+
+<div class="date">OUR MEMORIES</div>
+
+<h2>我們的回憶</h2>
+
+<p>
+每一張照片都不是單純的照片。<br>
+因為照片裡面，有我們。
 </p>
 
 <div class="photos">
 
-<img src="photo1.jpeg" alt="我們的回憶">
+<div class="photo-box" onclick="openPhoto('photo1.jpeg')">
+<img src="photo1.jpeg">
+<div class="photo-label">那時候的我們 ♥</div>
+</div>
 
-<img src="photo2.jpeg" alt="我們的回憶">
+<div class="photo-box" onclick="openPhoto('photo2.jpeg')">
+<img src="photo2.jpeg">
+<div class="photo-label">一個很喜歡的瞬間</div>
+</div>
 
-<img src="photo3.jpeg" alt="我們的回憶">
+<div class="photo-box" onclick="openPhoto('photo3.jpeg')">
+<img src="photo3.jpeg">
+<div class="photo-label">想念你的時候會想到</div>
+</div>
 
-<img src="photo4.jpeg" alt="我們的回憶">
+<div class="photo-box" onclick="openPhoto('photo4.jpeg')">
+<img src="photo4.jpeg">
+<div class="photo-label">我們一起留下的記憶</div>
+</div>
 
-<img src="photo5.jpeg" alt="我們的回憶">
+<div class="photo-box big" onclick="openPhoto('photo5.jpeg')">
+<img src="photo5.jpeg">
+<div class="photo-label">希望以後還有很多很多張</div>
+</div>
+
+</div>
+
+<p class="small">
+點照片可以放大
+</p>
+
+<button onclick="nextPage()">
+下一頁
+</button>
+
+</div>
+
+</section>
+
+
+<!-- 4 十個理由 -->
+
+<section class="page">
+
+<div class="card">
+
+<div class="date">10 REASONS</div>
+
+<h2>我喜歡你的 10 個理由</h2>
+
+<div class="reason-list">
+
+<div class="reason-item">01．因為跟你在一起的時候，我可以做自己。</div>
+
+<div class="reason-item">02．因為我喜歡跟你分享每天發生的小事。</div>
+
+<div class="reason-item">03．因為你總是會讓我期待下一次見面。</div>
+
+<div class="reason-item">04．因為你讓平凡的生活變得有期待。</div>
+
+<div class="reason-item">05．因為我喜歡你笑的樣子。</div>
+
+<div class="reason-item">06．因為就算距離很遠，我還是會想著你。</div>
+
+<div class="reason-item">07．因為你是我想第一個分享事情的人。</div>
+
+<div class="reason-item">08．因為想到未來，我還是希望有你。</div>
+
+<div class="reason-item">09．因為跟你一起經歷的事情，我都很珍惜。</div>
+
+<div class="reason-item">10．因為最後一個理由其實很簡單——就是我喜歡你。</div>
 
 </div>
 
 <button onclick="nextPage()">
-下一關
+下一頁
 </button>
 
 </div>
@@ -245,64 +592,96 @@ transition:.4s;
 </section>
 
 
-<!-- 第三頁 -->
+<!-- 5 測驗 -->
+
 <section class="page">
 
 <div class="card">
 
-<div class="date">LITTLE QUIZ</div>
+<div class="date">A LITTLE QUIZ</div>
 
-<h2>小測驗</h2>
+<h2>小桃子的小測驗</h2>
 
 <p>
-如果現在不能馬上見面，<br>
-你覺得我們最需要的是什麼？
+如果現在我突然出現在你面前，<br>
+你第一件事情會做什麼？
 </p>
 
-<div class="choice">
+<div class="quiz">
 
-<button onclick="answer('答案不是距離，是我們。')">
-A．更多時間
+<button onclick="quizAnswer('抱一下 ♥')">
+A．先抱我
 </button>
 
-<button onclick="answer('沒錯，最重要的是一直記得對方。')">
-B．一直記得彼此
+<button onclick="quizAnswer('先說你很想我 ♥')">
+B．先說你很想我
 </button>
 
-<button onclick="answer('答案很簡單：一起努力。')">
-C．一起努力
+<button onclick="quizAnswer('什麼都不說，直接牽手 ♥')">
+C．直接牽我的手
 </button>
 
 </div>
 
-<p id="answer" class="small"></p>
+<div class="result" id="quizResult"></div>
 
 </div>
 
 </section>
 
 
-<!-- 第四頁 -->
+<!-- 6 遠距離 -->
+
 <section class="page">
 
 <div class="card">
 
-<div class="date">A REASON I LOVE YOU</div>
+<div class="date">LONG DISTANCE</div>
 
-<h2>抽一個理由</h2>
+<h2>關於我們的距離</h2>
 
-<div class="reason" id="reason">
-按下面的按鈕看看
-</div>
+<p>
+遠距離最討厭的事情，<br>
+就是想見一個人的時候，<br>
+不能馬上出現在他面前。
+</p>
 
-<button onclick="randomReason()">
-抽一個愛你的理由
-</button>
+<div class="timeline">
 
+<div class="timeline-item">
+<strong>想念</strong>
 <br>
+有時候只是突然想到你。
+</div>
 
-<button class="secondary" onclick="nextPage()">
-下一關
+<div class="timeline-item">
+<strong>等待</strong>
+<br>
+等下一次見面的日子。
+</div>
+
+<div class="timeline-item">
+<strong>分享</strong>
+<br>
+即使不能一起，也還是想把生活告訴你。
+</div>
+
+<div class="timeline-item">
+<strong>期待</strong>
+<br>
+因為知道下一次見面一定會很開心。
+</div>
+
+<div class="timeline-item">
+<strong>我們</strong>
+<br>
+距離只是現在，不是我們的結局。
+</div>
+
+</div>
+
+<button onclick="nextPage()">
+繼續
 </button>
 
 </div>
@@ -310,49 +689,209 @@ C．一起努力
 </section>
 
 
-<!-- 第五頁 -->
+<!-- 7 如果你在身邊 -->
+
 <section class="page">
 
 <div class="card">
 
-<div class="date">7 · 16</div>
+<div class="date">IF YOU WERE HERE</div>
 
-<h2>最後想跟你說</h2>
+<h2>如果現在你就在我身邊</h2>
 
-<p class="final">
+<p>
+我大概不會先說很多話。
+</p>
 
-遠距離很難，但我不想因為距離就放棄我們。
+<p>
+我應該會先抱你一下。
+</p>
+
+<p>
+然後跟你說：
+</p>
+
+<h3>
+「我真的很想你。」
+</h3>
+
+<p>
+因為有些話打在手機裡，<br>
+永遠沒有真正見到你時那麼有感覺。
+</p>
+
+<button onclick="nextPage()">
+下一頁
+</button>
+
+</div>
+
+</section>
+
+
+<!-- 8 禮物 -->
+
+<section class="page">
+
+<div class="card">
+
+<div class="date">A LITTLE GIFT</div>
+
+<h2>這裡有一份小禮物</h2>
+
+<p>
+點一下看看。
+</p>
+
+<div class="gift" onclick="openGift()">
+🎁
+</div>
+
+<div class="gift-message" id="giftMessage">
+恭喜你！<br>
+你獲得了一個永遠想你的我 ♥
+</div>
+
+<button onclick="nextPage()">
+我收到了
+</button>
+
+</div>
+
+</section>
+
+
+<!-- 9 信 -->
+
+<section class="page">
+
+<div class="card">
+
+<div class="date">A LETTER FOR YOU</div>
+
+<h2>想認真跟你說一次</h2>
+
+<div class="letter">
+
+<div class="letter-content">
+
+小桃子：
 
 <br><br>
 
-我知道有時候會想念、會累，
-也會覺得見不到對方真的很辛苦。
+其實有很多話，平常可能不會特別說出口。
 
 <br><br>
 
-可是只要想到最後還是我們，
-我就覺得那些等待都有意義。
+遠距離真的不是一件很容易的事情。
+有時候想見你的時候不能見，
+想抱你的時候只能看著手機，
+生活裡有很多小事情，也不能第一時間一起經歷。
+
+<br><br>
+
+可是我還是覺得，
+只要最後身邊的人是你，
+中間那些等待好像都值得。
+
+<br><br>
+
+我很珍惜我們一起經歷過的每一件事情，
+也很期待我們接下來還可以一起留下更多回憶。
+
+<br><br>
+
+我不知道未來會遇到多少事情，
+但我希望我們可以一起面對。
+
+<br><br>
+
+所以不要因為距離覺得我們離彼此很遠。
+
+<br><br>
+
+因為不管人在哪裡，
+我都還是會想你。
 
 <br><br>
 
 <strong>
 遠距離很難，<br>
-但我們一起加油，一定可以的！
+但我們一起加油。
 </strong>
 
-</p>
+<br><br>
 
-<p class="signature">
-給我最想念的小桃子 ♥
-</p>
+我會期待下一次見到你的那一天。
 
-<button onclick="restart()">
-再看一次
+<br><br>
+
+♥
+
+</div>
+
+</div>
+
+<button onclick="nextPage()">
+最後一頁
 </button>
 
 </div>
 
 </section>
+
+
+<!-- 10 最後 -->
+
+<section class="page">
+
+<div class="final-heart">
+♥
+</div>
+
+<div class="date">
+7 · 16
+</div>
+
+<h1>小桃子</h1>
+
+<p class="final-text">
+
+距離很遠<br>
+但我的心沒有。
+
+<br><br>
+
+我想念你。
+
+</p>
+
+<p>
+謝謝你出現在我的生活裡。
+</p>
+
+<p class="signature">
+給我最想念的你 ♥
+</p>
+
+<button onclick="restart()">
+從頭再看一次
+</button>
+
+</section>
+
+</div>
+
+
+<!-- 放大照片 -->
+
+<div class="modal" id="modal">
+
+<div class="close" onclick="closePhoto()">
+×
+</div>
+
+<img id="modalImg">
 
 </div>
 
@@ -408,41 +947,73 @@ showPage(0);
 }
 
 
-function answer(text){
+function quizAnswer(text){
 
-document.getElementById("answer").textContent=text;
+document.getElementById("quizResult").textContent=text;
 
 setTimeout(()=>{
 
 nextPage();
 
-},1000);
+},1200);
 
 }
 
 
-const reasons=[
+function openGift(){
 
-"因為跟你在一起的時候，我可以很做自己。",
+document.getElementById("giftMessage").style.display="block";
 
-"因為就算隔著很遠，我還是會想跟你分享生活。",
+createHearts();
 
-"因為你的存在，讓平凡的日子變得很值得期待。",
-
-"因為每次想到未來，我還是希望身邊有你。",
-
-"因為我喜歡的不是某一個瞬間，是一直有你的我們。"
-
-];
+}
 
 
-function randomReason(){
+function openPhoto(src){
 
-const index=
-Math.floor(Math.random()*reasons.length);
+document.getElementById("modalImg").src=src;
 
-document.getElementById("reason").textContent=
-reasons[index];
+document.getElementById("modal").classList.add("active");
+
+}
+
+
+function closePhoto(){
+
+document.getElementById("modal").classList.remove("active");
+
+}
+
+
+function createHearts(){
+
+for(let i=0;i<15;i++){
+
+setTimeout(()=>{
+
+const heart=document.createElement("div");
+
+heart.className="floating-heart";
+
+heart.textContent="♥";
+
+heart.style.left=Math.random()*100+"vw";
+
+heart.style.animationDuration=
+3+Math.random()*3+"s";
+
+heart.style.fontSize=
+15+Math.random()*20+"px";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},6000);
+
+},i*100);
+
+}
 
 }
 
