@@ -1,1 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>給小桃子｜7.16</title>
 
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif;
+  background: linear-gradient(135deg, #fff5f7, #ffe4eb);
+  color: #4a353b;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 520px;
+  margin: auto;
+  padding: 30px 20px 50px;
+}
+
+.page {
+  display: none;
+  min-height: 90vh;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  animation: fade .5s ease;
+}
+
+.page.active {
+  display: flex;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.heart {
+  font-size: 75px;
+  color: #df7890;
+  animation: beat 1.5s infinite;
+}
+
+@keyframes beat {
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.date {
+  color: #b96b7e;
+  letter-spacing: 5px;
+  font-size: 14px;
+}
+
+h1 {
+  font-size: 40px;
+  margin: 15px 0 10px;
+}
+
+h2 {
+  font-size: 28px;
+  margin: 10px 0;
+}
+
+p {
+  line-height: 1.8;
+  font-size: 17px;
+}
+
+.card {
+  width: 100%;
+  background: rgba(255,255,255,.82);
+  border-radius: 28px;
+  padding: 25px;
+  box-shadow: 0 15px 40px rgba(180,90,110,.18);
+}
+
+button {
+  border: none;
+  border-radius: 30px;
+  padding: 14px 28px;
+  margin-top: 18px;
+  background: #d9788e;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: white;
+  color: #bd6478;
+  border: 1px solid #efc2cc;
+}
+
+.photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.photos img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+.photos img:last-child {
+  grid-column: span 2;
+  height: 230px;
+}
+
+.choice {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.choice button {
+  background: white;
+  color: #684c55;
+  border: 1px solid #efc8d0;
+  box-shadow: none;
+  margin: 0;
+}
+
+.reason {
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b45f73;
+  font-size: 23px;
+  font-weight: bold;
+  line-height: 1.6;
+}
+
+.final {
+  text-align: left;
+  font-size: 18px;
+}
+
+.signature {
+  color: #b45f73;
+  font-weight: bold;
+}
+
+.small {
+  font-size: 14px;
+  color: #987780;
+}
+
+.progress {
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 65%;
+  max-width: 300px;
+  height: 4px;
+  background: rgba(255,255,255,.7);
+  border-radius: 10px;
+  z-index: 10;
+}
+
+.bar {
+  height: 100%;
+  width: 20%;
+  background: #d9788e;
+  transition: .4s;
+}
+</style>
+</head>
+
+<body>
+
+<div class="progress">
+  <div class="bar" id="bar"></div>
+</div>
+
+<div class="container">
+
+<!-- 第一頁 -->
+<section class="page active">
+
+  <div class="heart">♥</div>
+
+  <div class="date">7 · 16</div>
+
+  <h1>給小桃子</h1>
+
+  <p>
+    這是一份只想送給你的<br>
+    小小遠距離驚喜。
+  </p>
+
+  <button onclick="nextPage()">
+    開始探索
+  </button>
+
+</section>
+
+
+<!-- 第二頁 -->
+<section class="page">
+
+  <div class="card">
+
+    <div class="date">OUR LITTLE MEMORY</div>
+
+    <h2>先一起回顧一下</h2>
+
+    <p>
+      有些照片看起來只是照片，<br>
+      但對我來說，每一張都是我們的回憶。
+    </p>
+
+    <div class="photos">
+
+      <img src="IMG_6582.HEIC">
+
+      <img src="IMG_6586.HEIC">
+
+      <img src="IMG_6760.HEIC">
+
+      <img src="IMG_6839.HEIC">
+
+      <img src="IMG_7224.JPG">
+
+    </div>
+
+    <button onclick="nextPage()">
+      下一關
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- 第三頁 -->
+<section class="page">
+
+  <div class="card">
+
+    <div class="date">LITTLE QUIZ</div>
+
+    <h2>小測驗</h2>
+
+    <p>
+      如果現在不能馬上見面，<br>
+      你覺得我們最需要的是什麼？
+    </p>
+
+    <div class="choice">
+
+      <button onclick="answer('答案不是距離，是我們。')">
+        A．更多時間
+      </button>
+
+      <button onclick="answer('沒錯，最重要的是一直記得對方。')">
+        B．一直記得彼此
+      </button>
+
+      <button onclick="answer('答案很簡單：一起努力。')">
+        C．一起努力
+      </button>
+
+    </div>
+
+    <p id="answer" class="small"></p>
+
+  </div>
+
+</section>
+
+
+<!-- 第四頁 -->
+<section class="page">
+
+  <div class="card">
+
+    <div class="date">A REASON I LOVE YOU</div>
+
+    <h2>抽一個理由</h2>
+
+    <div class="reason" id="reason">
+      按下面的按鈕看看
+    </div>
+
+    <button onclick="randomReason()">
+      抽一個愛你的理由
+    </button>
+
+    <br>
+
+    <button class="secondary" onclick="nextPage()">
+      下一關
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- 第五頁 -->
+<section class="page">
+
+  <div class="card">
+
+    <div class="date">7 · 16</div>
+
+    <h2>最後想跟你說</h2>
+
+    <p class="final">
+
+      遠距離很難，但我不想因為距離就放棄我們。
+
+      <br><br>
+
+      我知道有時候會想念、會累，
+      也會覺得見不到對方真的很辛苦。
+
+      <br><br>
+
+      可是只要想到最後還是我們，
+      我就覺得那些等待都有意義。
+
+      <br><br>
+
+      <strong>
+        遠距離很難，<br>
+        但我們一起加油，一定可以的！
+      </strong>
+
+    </p>
+
+    <p class="signature">
+      給我最想念的小桃子 ♥
+    </p>
+
+    <button onclick="restart()">
+      再看一次
+    </button>
+
+  </div>
+
+</section>
+
+</div>
+
+
+<script>
+
+let currentPage = 0;
+
+const pages = document.querySelectorAll(".page");
+
+const bar = document.getElementById("bar");
+
+
+function showPage(index) {
+
+  currentPage = index;
+
+  pages.forEach((page, i) => {
+
+    page.classList.toggle(
+      "active",
+      i === index
+    );
+
+  });
+
+  bar.style.width =
+    ((index + 1) / pages.length * 100) + "%";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+}
+
+
+function nextPage() {
+
+  if (currentPage < pages.length - 1) {
+
+    showPage(currentPage + 1);
+
+  }
+
+}
+
+
+function restart() {
+
+  showPage(0);
+
+}
+
+
+function answer(text) {
+
+  document.getElementById("answer").textContent = text;
+
+  setTimeout(() => {
+
+    nextPage();
+
+  }, 1000);
+
+}
+
+
+const reasons = [
+
+  "因為跟你在一起的時候，我可以很做自己。",
+
+  "因為就算隔著很遠，我還是會想跟你分享生活。",
+
+  "因為你的存在，讓平凡的日子變得很值得期待。",
+
+  "因為每次想到未來，我還是希望身邊有你。",
+
+  "因為我喜歡的不是某一個瞬間，是一直有你的我們。"
+
+];
+
+
+function randomReason() {
+
+  const index =
+    Math.floor(Math.random() * reasons.length);
+
+  document.getElementById("reason").textContent =
+    reasons[index];
+
+}
+
+</script>
+
+</body>
+</html>
